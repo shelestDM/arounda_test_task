@@ -2,7 +2,7 @@ const BurgerMenu = () => {
   return (
     <button className="fill-[#767676] hover:fill-black duration-500">
       <svg
-        class="BOTrp"
+        className="BOTrp"
         width="24"
         height="24"
         viewBox="0 0 24 24"

@@ -7,7 +7,7 @@ const NavLinks = () => {
     <div className="px-4 flex ">
       <ul className="flex gap-6 items-center ">
         {navLinksArr.map((link,index) => (
-          <li>
+          <li key={link}> 
             <a
               href=""
               className={index===3 ? classesWithGradientText : basicClasses }

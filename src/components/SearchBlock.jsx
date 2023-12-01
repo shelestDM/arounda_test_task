@@ -26,7 +26,7 @@ const SearchBlock = () => {
             <input
               type="text"
               placeholder="Search high-resolution images"
-              className="pl-2.5 pb-[2px] text-[10px] md:text-[14px] h-full grow text-[#111] focus:outline-none bg-[#eee]"
+              className="pl-2.5 pb-[2px] text-[10px] sm:text-[14px] h-full grow text-[#111] focus:outline-none bg-[#eee]"
             />
           </div>
         </div>

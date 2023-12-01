@@ -6,7 +6,7 @@ import { useFetch } from "../hooks/useFetch";
 import SearchBlock from "./SearchBlock";
 import PaginationList from "./pagination/PaginationList";
 import ImageCart from "./image/ImageCart";
-import ImageInfoModal from "./modal_window/ImageInfoModal";
+import ImageModal from "./modal_window/ImageModal";
 
 const Main = () => {
 
@@ -23,7 +23,7 @@ const Main = () => {
     })
 
     useEffect(()=>{
-        // fetchImages();
+        fetchImages();
     },[])
     console.log(imagesArr);
 
@@ -48,25 +48,21 @@ const Main = () => {
 
     let [isThreeColVisible, setIsThreeColVisible] = useState(false);
 
+    let [selectedImg, setSelectedImg] = useState(''); 
+
     return ( 
         <main className="max-w-[1320px] w-full mx-auto px-[20px]">
             <SearchBlock/>
             <div className="flex items-start gap-6 ">
-                <ImageCart />
-                <ImageInfoModal/>
-                {/* <button onClick={()=>{setIsThreeColVisible(!isThreeColVisible)}}>3/5</button> */}
-                {/* {
+                  {
                     isImagesLoading 
                     ? <Loader/>
-                    : <FiveColumsLayout CreateFiveSubArrays={CreateFiveSubArrays} arr={imagesArr}/>
-                } */}
-                  {/* {
-                    isImagesLoading 
-                    ? <Loader/>
-                    : <ThreeColumsLayout CreateThreeSubArrays={CreateThreeSubArrays} arr={imagesArr}/>
-                } */}
+                    : <ThreeColumsLayout 
+                        CreateThreeSubArrays={CreateThreeSubArrays} 
+                        arr={imagesArr}/>
+                }
             </div>
-            <PaginationList/>
+            {/* <PaginationList/> */}
         </main>
      );
 }
@@ -91,3 +87,9 @@ export default Main;
 1. Зробити реєстрацію (Найбільша базова реєстрація).
 2. Можливість зберігати / видаляти зображення зі стрічки галереї в колекцію профілю.
 */
+
+ /* {
+                    isImagesLoading 
+                    ? <Loader/>
+                    : <FiveColumsLayout CreateFiveSubArrays={CreateFiveSubArrays} arr={imagesArr}/>
+                } */
