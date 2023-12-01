@@ -4,6 +4,9 @@ import ThreeColumsLayout from "./image/ThreeColumsLayout";
 import Loader from "./UI/Loader";
 import { useFetch } from "../hooks/useFetch";
 import SearchBlock from "./SearchBlock";
+import PaginationList from "./pagination/PaginationList";
+import ImageCart from "./image/ImageCart";
+import ImageInfoModal from "./modal_window/ImageInfoModal";
 
 const Main = () => {
 
@@ -49,7 +52,8 @@ const Main = () => {
         <main className="max-w-[1320px] w-full mx-auto px-[20px]">
             <SearchBlock/>
             <div className="flex items-start gap-6 ">
-
+                <ImageCart />
+                <ImageInfoModal/>
                 {/* <button onClick={()=>{setIsThreeColVisible(!isThreeColVisible)}}>3/5</button> */}
                 {/* {
                     isImagesLoading 
@@ -62,8 +66,28 @@ const Main = () => {
                     : <ThreeColumsLayout CreateThreeSubArrays={CreateThreeSubArrays} arr={imagesArr}/>
                 } */}
             </div>
+            <PaginationList/>
         </main>
      );
 }
  
 export default Main;
+
+/* 
+1. Два види дисплея стрічки галереї, опція з 3 колонами та з 5, між якими можна буде перемикатися при натисканні на кнопку.
+2. Стрічка галереї має бути як у Unsplash (Зображення у стрічці автоматично заповнюють порожнє місце залежно від їх розмірів).
+3. Пагінація стрічки як сторінок.
+4. При натисканні на зображення в стрічці має вести на сторінку цього зображення з доповненою інфою 
+(Типу опис, теги, лайки, автор, інше. Не обов'язково багато просто пару деталей про зображення).
+5. При натисканні на тег зображення з індивідуальної сторінки, вести на колекцію зображень із цим тегом. 
+(Колекція повинна працювати за тією ж логікою, що і головна стрічка).
+6. Зробити пошук зображень.
+7. 
+8. 
+9. 
+
+**Бонус задачі**
+
+1. Зробити реєстрацію (Найбільша базова реєстрація).
+2. Можливість зберігати / видаляти зображення зі стрічки галереї в колекцію профілю.
+*/
