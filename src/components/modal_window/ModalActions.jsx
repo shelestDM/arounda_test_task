@@ -5,7 +5,7 @@ import ButtonWithIcon from '../image/ButtonWithIcon';
 
 const ModalActions = () => {
     return ( 
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
             <ButtonWithIcon icon={like_icon}/>
             <ButtonWithIcon icon={plus_icon}/>
         </div>

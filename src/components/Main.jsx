@@ -88,8 +88,8 @@ export default Main;
 2. Можливість зберігати / видаляти зображення зі стрічки галереї в колекцію профілю.
 */
 
- /* {
-                    isImagesLoading 
-                    ? <Loader/>
-                    : <FiveColumsLayout CreateFiveSubArrays={CreateFiveSubArrays} arr={imagesArr}/>
-                } */
+/* {
+isImagesLoading 
+? <Loader/>
+: <FiveColumsLayout CreateFiveSubArrays={CreateFiveSubArrays} arr={imagesArr}/>
+} */

@@ -7,7 +7,7 @@ const ModalAuthor = (props) => {
                 <span className="text-[15px] font-medium text-black">
                     {authorData.first_name}
                 </span>
-                <a href={authorData.portfolio_url} className="text-[#006aff] text-[12px]">
+                <a href={authorData.portfolio_url} className="text-[#006aff] text-[10px] md:text-[12px]">
                     Author portfolio
                 </a>
             </div>
