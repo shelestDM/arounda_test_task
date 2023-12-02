@@ -10,7 +10,7 @@ const NavLinks = () => {
           <li key={link}> 
             <a
               href=""
-              className={index===3 ? classesWithGradientText : basicClasses }
+              className={index===2 ? classesWithGradientText : basicClasses }
             >
               {link}
             </a>

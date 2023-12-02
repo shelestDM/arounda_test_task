@@ -5,64 +5,59 @@ import Loader from "./UI/Loader";
 import { useFetch } from "../hooks/useFetch";
 import SearchBlock from "./SearchBlock";
 import PaginationList from "./pagination/PaginationList";
-import ImageCart from "./image/ImageCart";
-import ImageModal from "./modal_window/ImageModal";
 
 const Main = () => {
 
     let REACT_APP_ACCESS_KEY = 'Ue-fRKwJBEpNjjWFX6rb3VYBEYcnTO6rJaRA8Ck8qqo';
-    let perPageCount = 9;
-    let url = `https://api.unsplash.com/photos/?client_id=${REACT_APP_ACCESS_KEY}&per_page=${perPageCount}`;
+
+    let [toggleColumnsCount, setToggleColumnsCount] = useState(false);
+
+    let perPageCount = toggleColumnsCount ? 10 : 9;
+
+    let [page, setPage] = useState(1);
+
+    console.log(perPageCount);
+
+    const changePage = (pageNumber) =>{
+        setPage(pageNumber);
+    }
+
+    let url = `https://api.unsplash.com/photos/?client_id=${REACT_APP_ACCESS_KEY}&page=${page}&per_page=${perPageCount}`;
 
     const [imagesArr, setImagesArr] = useState([]);
   
-    const [fetchImages, isImagesLoading, imagesLoading] = useFetch(async () =>{
+    const [fetchImages, isImagesLoading, imageError] = useFetch(async () =>{
         const data = (await fetch(url)).json();
         const images = await data;
-        setImagesArr([...images]);
+        setImagesArr([...imagesArr, ...images]);
     })
 
     useEffect(()=>{
         fetchImages();
-    },[])
-    console.log(imagesArr);
+    },[page,toggleColumnsCount])
 
+    let pagesArr = [1,2,3,4,5,6,7,8,9,10];
 
-    function CreateFiveSubArrays(arr){
-        let fiveColumsArr = [];
+    let columnsConditionArr = toggleColumnsCount 
+    ? <FiveColumsLayout imagesArr={imagesArr}/> 
+    : <ThreeColumsLayout   imagesArr={imagesArr}/>
 
-        for (let i = 0; i < arr.length; i+=2) {
-            fiveColumsArr[i] = [arr[i], arr[i+1]]  
-        }
-        return fiveColumsArr;
+    const toggleColumnsHandler = () => {
+        setToggleColumnsCount(!toggleColumnsCount);
+        setImagesArr([]);
     }
-
-    function CreateThreeSubArrays(arr){
-        let threeColumsArr = [];
-
-        for (let i = 0; i < arr.length; i+=3) {
-            threeColumsArr[i] = [arr[i], arr[i+1],arr[i+2]]  
-        }
-        return threeColumsArr;
-    }
-
-    let [isThreeColVisible, setIsThreeColVisible] = useState(false);
-
-    let [selectedImg, setSelectedImg] = useState(''); 
 
     return ( 
         <main className="max-w-[1320px] w-full mx-auto px-[20px]">
-            <SearchBlock/>
+            <SearchBlock onClickHandler={toggleColumnsHandler}/>
             <div className="flex items-start gap-6 ">
-                  {
+                {
                     isImagesLoading 
                     ? <Loader/>
-                    : <ThreeColumsLayout 
-                        CreateThreeSubArrays={CreateThreeSubArrays} 
-                        arr={imagesArr}/>
+                    : columnsConditionArr
                 }
             </div>
-            {/* <PaginationList/> */}
+            <PaginationList activePage={page} changePage={changePage} pages={pagesArr}/>
         </main>
      );
 }
@@ -71,8 +66,8 @@ export default Main;
 
 /* 
 1. Два види дисплея стрічки галереї, опція з 3 колонами та з 5, між якими можна буде перемикатися при натисканні на кнопку.
-2. Стрічка галереї має бути як у Unsplash (Зображення у стрічці автоматично заповнюють порожнє місце залежно від їх розмірів).
-3. Пагінація стрічки як сторінок.
+2. 
+3. 
 4. При натисканні на зображення в стрічці має вести на сторінку цього зображення з доповненою інфою 
 (Типу опис, теги, лайки, автор, інше. Не обов'язково багато просто пару деталей про зображення).
 5. При натисканні на тег зображення з індивідуальної сторінки, вести на колекцію зображень із цим тегом. 

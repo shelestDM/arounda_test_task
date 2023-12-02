@@ -1,9 +1,13 @@
 import search_icon from '../assets/header/search.svg';
+import Button from './UI/Button';
 
-const SearchBlock = () => {
+const SearchBlock = (props) => {
+
+  let onClickHandler = props.onClickHandler;
+  
   return (
-    <div className='py-[56px]'>
-        <div className="max-w-[672px] h-30 lg:h-[280px] flex gap-4 items-start justify-end flex-col">
+    <div className='py-[56px] flex items-end gap-20'>
+        <div className="grow max-w-[672px] h-30 lg:h-[280px] flex gap-4 items-start justify-end flex-col">
           <div>
             <h1 className="text-3xl lg:text-[40px] leading-[1.2] mb-2 font-[700]">Unsplash</h1>
             <h2 className="lg:text-[18px] font-normal">
@@ -30,6 +34,7 @@ const SearchBlock = () => {
             />
           </div>
         </div>
+        <Button onClickHandler={onClickHandler} title={"Toggle 3/5 columns"}/>
     </div>
   );
 };

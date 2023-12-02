@@ -1,16 +1,20 @@
 import PaginationItem from "./PaginationItem";
 
-const PaginationList = () => {
-    let arr = [1,2,3,4,5,6,7,8,9,10]
-    return ( 
-        <ul className="max-w-[500px] flex justify-between sm:gap-5 mx-auto my-10">
-            {
-                arr.map(page=>
-                    <PaginationItem page={page}/>    
-                )
-            }
-        </ul>
-     );
-}
- 
+const PaginationList = (props) => {
+  let changePage = props.changePage;
+
+  return (
+    <ul className="max-w-[500px] flex justify-between sm:gap-5 mx-auto my-10">
+      {props.pages.map((page) => (
+        <PaginationItem
+          activePage={props.activePage}
+          changePage={changePage}
+          key={page}
+          page={page}
+        />
+      ))}
+    </ul>
+  );
+};
+
 export default PaginationList;

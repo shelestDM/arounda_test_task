@@ -4,7 +4,7 @@ import BurgerMenu from './header/BurgerMenu';
 import Logo from './header/Logo';
 import UserIcon from './header/UserIcon';
 import ActivityButton from './header/ActivityButton';
-import SubmitPhotoBtn from './header/SubmitPhotoBtn';
+import SubmitPhotoBtn from './UI/Button';
 
 const Header = () => {
     return ( 
@@ -14,7 +14,7 @@ const Header = () => {
                 <SearchForm/>
                 <div className='gap-4 hidden lg:flex'>
                     <NavLinks/>
-                    <SubmitPhotoBtn/>
+                    <SubmitPhotoBtn title={"Submit photo"}/>
                     <ActivityButton/>
                     <UserIcon/>
                 </div>
