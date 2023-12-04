@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom/cjs/react-router-dom';
 import ImageCart from '../image/ImageCart';
 
 const FiveColumsLayout = (props) => {
@@ -18,14 +19,14 @@ const FiveColumsLayout = (props) => {
     }
 
     let imagesArrWithSubArr = [firstColumn,secondColumn,thirdColumn,fourColumn,fiveColumn];
-    console.log(imagesArrWithSubArr);
+
     return ( 
         <>
          {
             imagesArrWithSubArr.map((subArr,index)=>
                 <div key={index} className=" w-1/3 min-h-20 flex flex-col gap-5 ">
                     {subArr.map((imageObj) => (
-                        <ImageCart key={imageObj.id} imageData={imageObj} />
+                        <ImageCart  imageData={imageObj} />
                     ))}
                 </div>    
             )
@@ -33,5 +34,4 @@ const FiveColumsLayout = (props) => {
         </>
      );
 }
- 
 export default FiveColumsLayout;

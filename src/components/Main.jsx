@@ -6,7 +6,9 @@ import { useFetch } from "../hooks/useFetch";
 import SearchBlock from "./SearchBlock";
 import PaginationList from "./pagination/PaginationList";
 
-const Main = () => {
+const Main = (props) => {
+
+    console.log(props.query);
 
     let REACT_APP_ACCESS_KEY = 'Ue-fRKwJBEpNjjWFX6rb3VYBEYcnTO6rJaRA8Ck8qqo';
 
@@ -16,20 +18,25 @@ const Main = () => {
 
     let [page, setPage] = useState(1);
 
-    console.log(perPageCount);
-
     const changePage = (pageNumber) =>{
         setPage(pageNumber);
     }
+    
+    let url = `https://api.unsplash.com/${props.query ? 'search/' : ''}photos/?client_id=${REACT_APP_ACCESS_KEY}&page=${page}${props.query ? '&query='+props.query : '' }&per_page=${perPageCount}`
 
-    let url = `https://api.unsplash.com/photos/?client_id=${REACT_APP_ACCESS_KEY}&page=${page}&per_page=${perPageCount}`;
+    console.log(url);
 
     const [imagesArr, setImagesArr] = useState([]);
   
     const [fetchImages, isImagesLoading, imageError] = useFetch(async () =>{
         const data = (await fetch(url)).json();
-        const images = await data;
-        setImagesArr([...imagesArr, ...images]);
+        const result = await data;
+        if(props.query){
+            let searchedImages = result.results;
+            setImagesArr([...imagesArr, ...searchedImages]);
+        }else{
+            setImagesArr([...imagesArr, ...result]);
+        }
     })
 
     useEffect(()=>{
@@ -48,7 +55,7 @@ const Main = () => {
     }
 
     return ( 
-        <main className="max-w-[1320px] w-full mx-auto px-[20px]">
+        <main className="max-w-[1320px] w-full mx-auto px-[20px] smooth_appearing">
             <SearchBlock onClickHandler={toggleColumnsHandler}/>
             <div className="flex items-start gap-6 ">
                 {
@@ -65,26 +72,18 @@ const Main = () => {
 export default Main;
 
 /* 
-1. Два види дисплея стрічки галереї, опція з 3 колонами та з 5, між якими можна буде перемикатися при натисканні на кнопку.
-2. 
-3. 
-4. При натисканні на зображення в стрічці має вести на сторінку цього зображення з доповненою інфою 
-(Типу опис, теги, лайки, автор, інше. Не обов'язково багато просто пару деталей про зображення).
-5. При натисканні на тег зображення з індивідуальної сторінки, вести на колекцію зображень із цим тегом. 
-(Колекція повинна працювати за тією ж логікою, що і головна стрічка).
+1. done full
+2. done full
+3. done full
+4. done full
+5. done full
 6. Зробити пошук зображень.
-7. 
-8. 
-9. 
+7. done full
+8. done full
+9. done full
 
 **Бонус задачі**
 
-1. Зробити реєстрацію (Найбільша базова реєстрація).
+1. done full
 2. Можливість зберігати / видаляти зображення зі стрічки галереї в колекцію профілю.
 */
-
-/* {
-isImagesLoading 
-? <Loader/>
-: <FiveColumsLayout CreateFiveSubArrays={CreateFiveSubArrays} arr={imagesArr}/>
-} */
