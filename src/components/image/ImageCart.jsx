@@ -10,7 +10,6 @@ const ImageCart = (props) => {
   const toggleModalWindow = () =>{
     setIsImageModalVisible(!isImageModalVisible);
   }
-  
     return (
       <NavLink  to={'/' + imageData.id}>
         <div 
@@ -32,10 +31,3 @@ const ImageCart = (props) => {
 };
 
 export default ImageCart;
-
-
-// { 
-//   isImageModalVisible && createPortal(
-//     <ImageModal onCloseModalHandler={toggleModalWindow} imageData={imageData}/>,
-//     document.getElementById('root'))
-// }

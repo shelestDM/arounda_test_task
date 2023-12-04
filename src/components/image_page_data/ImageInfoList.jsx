@@ -1,5 +1,4 @@
 import ImageInfoItem from "./ImageInfoItem";
-import ImageTags from "./ImageTags";
 
 const ImageInfo = (props) => {
 
@@ -9,12 +8,11 @@ const ImageInfo = (props) => {
   let update_time = imageData.updated_at.slice(0,10);
 
   let infoArr = [
-    {title: 'Create Time', data: create_time},
-    {title: 'Update Time', data: update_time},
-    {title: 'Likes', data: imageData.likes},
-    {title: 'Place', data: imageData.location.name},
-    {title: 'Downloads', data: imageData.downloads}
-
+    {title: 'Create Time', data: create_time || `no info yet`},
+    {title: 'Update Time', data: update_time || `no info yet`},
+    {title: 'Likes', data: imageData.likes || `no info yet`},
+    {title: 'Place', data: imageData.location.name || `no info yet`},
+    {title: 'Downloads', data: imageData.downloads || `no info yet`}
   ]
 
   return (

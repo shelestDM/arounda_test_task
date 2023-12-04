@@ -6,8 +6,6 @@ const CustomButton = (props) => {
     }
   }
 
-  console.log(props.disabled);
-
   return (
     <div className="flex items-center">
       <button

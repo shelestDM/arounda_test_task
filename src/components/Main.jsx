@@ -5,70 +5,95 @@ import Loader from "./UI/Loader";
 import { useFetch } from "../hooks/useFetch";
 import SearchBlock from "./SearchBlock";
 import PaginationList from "./pagination/PaginationList";
+import REACT_APP_ACCESS_KEY from "../api_key";
+import NoImageFound from "./UI/NoImageFound";
 
 const Main = (props) => {
 
-    console.log(props.query);
+  let api_key = REACT_APP_ACCESS_KEY;
 
-    let REACT_APP_ACCESS_KEY = 'Ue-fRKwJBEpNjjWFX6rb3VYBEYcnTO6rJaRA8Ck8qqo';
+  let [toggleColumnsCount, setToggleColumnsCount] = useState(false);
 
-    let [toggleColumnsCount, setToggleColumnsCount] = useState(false);
+  let perPageCount = toggleColumnsCount ? 10 : 9;
 
-    let perPageCount = toggleColumnsCount ? 10 : 9;
+  let [page, setPage] = useState(0);
 
-    let [page, setPage] = useState(1);
+  const changePage = (pageNumber) => {
+    setPage(pageNumber);
+  };
 
-    const changePage = (pageNumber) =>{
-        setPage(pageNumber);
-    }
-    
-    let url = `https://api.unsplash.com/${props.query ? 'search/' : ''}photos/?client_id=${REACT_APP_ACCESS_KEY}&page=${page}${props.query ? '&query='+props.query : '' }&per_page=${perPageCount}`
+  let [searchQuery, setSearchQuery] = useState(props.query || '');
 
-    console.log(url);
-
-    const [imagesArr, setImagesArr] = useState([]);
+  let url = `https://api.unsplash.com/${searchQuery  ? "search/" : ""}photos/?client_id=${api_key}&page=${page}${searchQuery ? "&query=" + searchQuery : ""}&per_page=${perPageCount}`;
   
-    const [fetchImages, isImagesLoading, imageError] = useFetch(async () =>{
-        const data = (await fetch(url)).json();
-        const result = await data;
-        if(props.query){
-            let searchedImages = result.results;
-            setImagesArr([...imagesArr, ...searchedImages]);
-        }else{
-            setImagesArr([...imagesArr, ...result]);
-        }
-    })
+  const [imagesArr, setImagesArr] = useState([]);
 
-    useEffect(()=>{
-        fetchImages();
-    },[page,toggleColumnsCount])
+  const [fetchImages, isImagesLoading, imageError] = useFetch(async () => {
+    const data = (await fetch(url)).json();
+    const result = await data;
 
-    let pagesArr = [1,2,3,4,5,6,7,8,9,10];
-
-    let columnsConditionArr = toggleColumnsCount 
-    ? <FiveColumsLayout imagesArr={imagesArr}/> 
-    : <ThreeColumsLayout   imagesArr={imagesArr}/>
-
-    const toggleColumnsHandler = () => {
-        setToggleColumnsCount(!toggleColumnsCount);
-        setImagesArr([]);
+    if (props.query || searchQuery) {
+      let searchedImages = result.results;
+      setImagesArr([...imagesArr, ...searchedImages]);
+    } else {
+      setImagesArr([...imagesArr, ...result]);
     }
+  });
 
-    return ( 
-        <main className="max-w-[1320px] w-full mx-auto px-[20px] smooth_appearing">
-            <SearchBlock onClickHandler={toggleColumnsHandler}/>
-            <div className="flex items-start gap-6 ">
-                {
-                    isImagesLoading 
-                    ? <Loader/>
-                    : columnsConditionArr
-                }
-            </div>
-            <PaginationList activePage={page} changePage={changePage} pages={pagesArr}/>
-        </main>
-     );
-}
- 
+  useEffect(() => {
+    fetchImages();
+  }, [page, toggleColumnsCount]);
+
+
+  let getQueryForSearch = () =>{
+        if(page>0){
+            setPage(0);
+            setImagesArr([]);
+        }else if(page===0){
+            setPage(++page);
+            setImagesArr([]);
+        }
+  }
+
+  let pagesArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  let columnsConditionArr = toggleColumnsCount ? <FiveColumsLayout imagesArr={imagesArr} /> : <ThreeColumsLayout imagesArr={imagesArr} />;
+
+  const toggleColumnsHandler = () => {
+    setToggleColumnsCount(!toggleColumnsCount);
+    setImagesArr([]);
+  };
+
+  let isToggleBtnDisabled = page > 1 ? true : false;
+
+  return (
+    <main className="max-w-[1320px] w-full mx-auto px-[20px] smooth_appearing">
+      <SearchBlock
+        getQueryForSearch={getQueryForSearch}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        isToggleBtnDisabled={isToggleBtnDisabled}
+        onClickHandler={toggleColumnsHandler}
+      />
+      <div className="flex gap-6 flex-col lxs:items-center sm:items-start sm:flex-row">
+        {
+            isImagesLoading
+            ? <Loader /> 
+            : columnsConditionArr
+        }
+        </div>
+
+        { (imagesArr.length === 0 ) && <NoImageFound/>}
+
+        {!(imagesArr.length === 0 ) && <PaginationList activePage={page} changePage={changePage} pages={pagesArr} />}
+        
+        <div className="text-sm text-red-400 text-center">
+            {imageError}
+        </div>
+    </main>
+  );
+};
+
 export default Main;
 
 /* 
@@ -77,7 +102,7 @@ export default Main;
 3. done full
 4. done full
 5. done full
-6. Зробити пошук зображень.
+6. done full
 7. done full
 8. done full
 9. done full

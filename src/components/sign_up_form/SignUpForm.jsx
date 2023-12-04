@@ -35,7 +35,7 @@ const SignUpForm = (props) => {
   return (
     <>
     <h1 className="text-center text-2xl my-10 animate-pulse  text-gray-500">
-        To see my work, you need Sign up firs :)
+      To see my work, first you need to Sign up  :)
     </h1>
     <form
       onSubmit={onSubmitHandler}

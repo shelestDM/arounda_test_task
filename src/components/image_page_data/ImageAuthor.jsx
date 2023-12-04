@@ -8,7 +8,7 @@ const ModalAuthor = (props) => {
                     {authorData.first_name}
                 </span>
                 <a href={authorData.portfolio_url} className="text-[#006aff] text-[10px] md:text-[12px]">
-                    Author portfolio
+                    {authorData.portfolio_url ? 'Author portfolio' : 'No portfolio yet'}
                 </a>
             </div>
         </div>
