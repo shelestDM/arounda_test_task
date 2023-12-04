@@ -16,7 +16,7 @@ const ImagePage = () => {
 
   let url = `https://api.unsplash.com/photos/${id}?client_id=${api_key}`;
 
-  const [fetchImage, imageError] = useFetch(async () => {
+  const [fetchImage, isImageLoading, imageError] = useFetch(async () => {
     const data = (await fetch(url)).json();
     const image = await data;
     setImageData(image);
@@ -24,7 +24,7 @@ const ImagePage = () => {
 
   useEffect(() => {
     fetchImage();
-  }, [fetchImage]);
+  }, []);
 
   let aspectRatioValue = imageData.width / imageData.height;
 
@@ -33,6 +33,8 @@ const ImagePage = () => {
       : "mx-auto w-9/12 lxs:w-7/12 md:w-5/12 lg:w-4/12 xl:w-[20vw]";
 
   let isImageObjEmpty = Object.keys(imageData).length === 0 ? true : false ;
+
+  console.log(imageError);
 
   return (
     <>
@@ -59,7 +61,7 @@ const ImagePage = () => {
         )}
       </section>
       <div className="text-center text-red-300 text-sm">
-        {imageError}
+        {isImageLoading || imageError}
       </div>
     </>
   );

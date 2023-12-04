@@ -13,6 +13,7 @@ const SarchForm = () => {
         />
       </button>
       <input
+        disabled={true}
         type="text"
         placeholder="Search high-resolution images"
         className="pl-2.5 pb-[2px] h-full rounded-3xl grow text-[#111] focus:outline-none bg-[#eee]"

@@ -4,7 +4,7 @@ const PaginationList = (props) => {
   let changePage = props.changePage;
 
   return (
-    <ul className="max-w-[500px] flex justify-center sm:gap-5 mx-auto my-10">
+    <ul className="max-w-[500px] flex justify-center gap-5 mx-auto my-10">
        <PaginationItem
           activePage={props.activePage}
           changePage={changePage}

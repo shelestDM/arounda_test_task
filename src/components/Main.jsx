@@ -46,8 +46,13 @@ const Main = (props) => {
 
 
   let getQueryForSearch = () =>{
-        setPage(1);
-        setImagesArr([]);
+    if(page===1){
+      setPage(2);
+      setImagesArr([]);
+    }else{
+      setPage(1);
+      setImagesArr([]);
+    }
   }
 
 
