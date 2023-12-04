@@ -47,7 +47,7 @@ const SignUpForm = (props) => {
         type="text"
         name="user_name"
         id="user_name"
-        placeholder="Enter your name or nickname"
+        placeholder="Enter your name"
         className="focus:shadow-2xl fucus:bg-gray-100 focus:border-gray-700 border border-transparent duration-500 h-10 px-5 w-full md:w-8/12 rounded-3xl grow text-[#111] outline-none focus:outline-none bg-[#eee]"
       />
       <input

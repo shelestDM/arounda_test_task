@@ -9,14 +9,14 @@ import REACT_APP_ACCESS_KEY from "../api_key";
 import NoImageFound from "./UI/NoImageFound";
 
 const Main = (props) => {
-
+    
   let api_key = REACT_APP_ACCESS_KEY;
 
   let [toggleColumnsCount, setToggleColumnsCount] = useState(false);
 
   let perPageCount = toggleColumnsCount ? 10 : 9;
 
-  let [page, setPage] = useState(0);
+  let [page, setPage] = useState(1);
 
   const changePage = (pageNumber) => {
     setPage(pageNumber);
@@ -46,16 +46,10 @@ const Main = (props) => {
 
 
   let getQueryForSearch = () =>{
-        if(page>0){
-            setPage(0);
-            setImagesArr([]);
-        }else if(page===0){
-            setPage(++page);
-            setImagesArr([]);
-        }
+        setPage(1);
+        setImagesArr([]);
   }
 
-  let pagesArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   let columnsConditionArr = toggleColumnsCount ? <FiveColumsLayout imagesArr={imagesArr} /> : <ThreeColumsLayout imagesArr={imagesArr} />;
 
@@ -66,6 +60,7 @@ const Main = (props) => {
 
   let isToggleBtnDisabled = page > 1 ? true : false;
 
+  console.log(page);
   return (
     <main className="max-w-[1320px] w-full mx-auto px-[20px] smooth_appearing">
       <SearchBlock
@@ -85,7 +80,7 @@ const Main = (props) => {
 
         { (imagesArr.length === 0 ) && <NoImageFound/>}
 
-        {!(imagesArr.length === 0 ) && <PaginationList activePage={page} changePage={changePage} pages={pagesArr} />}
+        {!(imagesArr.length === 0 ) && <PaginationList activePage={page} changePage={changePage} page={page} />}
         
         <div className="text-sm text-red-400 text-center">
             {imageError}
